@@ -60,6 +60,18 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- Dependencia de javax.persistence -->
+    <dependency>
+        <groupId>javax.persistence</groupId>
+        <artifactId>javax.persistence-api</artifactId>
+        <version>2.2</version> 
+    </dependency>
+    <!-- Dependencia de Jakarta Persistence API -->
+    <dependency>
+        <groupId>jakarta.persistence</groupId>
+        <artifactId>jakarta.persistence-api</artifactId>
+        <version>3.0.0</version> <!-- Utiliza la versión compatible con tu Jakarta EE -->
+    </dependency>
 	</dependencies>
 
 	<build>
