@@ -1,6 +1,6 @@
-package service;
+package com.springboot.service;
 
-import model.Card;
+import com.springboot.model.Card;
 
 public interface CardService {
     Card generateCardNumber(String productId);

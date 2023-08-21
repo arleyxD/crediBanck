@@ -1,10 +1,10 @@
-package service;
+package com.springboot.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import model.Card;
-import repository.CardRepository;
-import validation.CardValidation;
+import com.springboot.model.Card;
+import com.springboot.repository.CardRepository;
+import com.springboot.validation.CardValidation;
 
 public class CardServiceImpl implements CardService{
 	

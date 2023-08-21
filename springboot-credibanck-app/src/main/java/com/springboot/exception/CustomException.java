@@ -1,4 +1,4 @@
-package exception;
+package com.springboot.exception;
 
 public class CustomException {
 
