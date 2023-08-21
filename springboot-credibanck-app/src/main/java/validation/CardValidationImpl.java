@@ -1,4 +1,4 @@
-package com.springboot.validation;
+package validation;
 
 public class CardValidationImpl implements CardValidation {
     @Override
@@ -6,12 +6,13 @@ public class CardValidationImpl implements CardValidation {
         // Lógica de validación del productId
         if (!isValidProductId(productId)) {
            // throw new InvalidProductIdException("Invalid product ID");
+        	System.out.println("Error validacion tarjeta");
         }
     }
 
     private boolean isValidProductId(String productId) {
         // Implementa la lógica de validación del productId aquí
-        return true; // Por ejemplo, siempre devuelve verdadero en este ejemplo
+    	return productId != null && productId.length() >= 4; // Por ejemplo, siempre devuelve verdadero en este ejemplo
     }
 
 }

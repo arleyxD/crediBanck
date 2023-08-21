@@ -1,4 +1,4 @@
-package com.springboot.validation;
+package validation;
 
 public interface  CardValidation {
 	void validateProductId(String productId);

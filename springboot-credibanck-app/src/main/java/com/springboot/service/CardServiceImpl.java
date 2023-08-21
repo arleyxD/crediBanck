@@ -1,10 +1,15 @@
 package com.springboot.service;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.springboot.model.Card;
 import com.springboot.repository.CardRepository;
-import com.springboot.validation.CardValidation;
+
+import validation.CardValidation;
 
 public class CardServiceImpl implements CardService{
 	
@@ -17,8 +22,21 @@ public class CardServiceImpl implements CardService{
 
 	@Override
 	public Card generateCardNumber(String productId) {
-		// TODO Auto-generated method stub
-		return null;
+		cardValidation.validateProductId(productId);
+		  // Lógica para generar el número de tarjeta
+        String generatedCardNumber = generateRandomCardNumber(productId);
+
+        // Crear una nueva tarjeta
+        Card newCard = new Card();
+        newCard.setCardId(generatedCardNumber);
+        newCard.setProductId(productId);
+        newCard.setCardNumber(generatedCardNumber);
+        newCard.setExpirationDate(calculateExpirationDate());
+        newCard.setActive(false); // La tarjeta se crea inactiva por defecto
+        newCard.setBalance(0.0);
+
+        // Persistencia del objeto Card en la base de datos
+        return cardRepository.save(newCard);
 	}
 
 	@Override
@@ -44,5 +62,34 @@ public class CardServiceImpl implements CardService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	
+	private String generateRandomCardNumber(String productId) {
+	    // Obtén los primeros 6 dígitos del productId para formar el prefijo del número de tarjeta
+	    String prefix = productId.substring(0, Math.min(productId.length(), 6));
+	    // Genera 10 dígitos aleatorios para completar el número de tarjeta
+	    String randomDigits = generateRandomDigits(10);
+	    // Combina el prefijo y los dígitos aleatorios para formar el número de tarjeta completo
+	    String cardNumber = prefix + randomDigits;
+
+	    return cardNumber;
+	}
+
+	private String generateRandomDigits(int length) {
+	    StringBuilder stringBuilder = new StringBuilder();
+	    Random random = new Random();
+	    for (int i = 0; i < length; i++) {
+	        int digit = random.nextInt(10);
+	        stringBuilder.append(digit);
+	    }
+
+	    return stringBuilder.toString();
+	}
+	
+	 private Date calculateExpirationDate() {
+	        Calendar calendar = Calendar.getInstance();
+	        calendar.add(Calendar.YEAR, 3); // Agrega 3 años a la fecha actual
+	        return calendar.getTime();
+	    }
 
 }
