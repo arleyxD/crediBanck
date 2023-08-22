@@ -77,8 +77,23 @@ public class CardServiceImpl implements CardService{
 
 	@Override
 	public Card rechargeBalance(String cardId, double balance) {
-		// TODO Auto-generated method stub
-		return null;
+		cardValidation.validateCardId(cardId); // Validación del cardId
+        
+        if (balance <= 0) {
+            throw new CardIdValidationException("Invalid recharge amount");
+        }
+
+        Card card = cardRepository.findById(cardId)
+                .orElseThrow(() -> new CardIdValidationException("Card not found"));
+
+        if (!card.isActive()) {
+            throw new CardIdValidationException("Card is not active");
+        }
+
+        card.setBalance(card.getBalance() + balance);
+        cardRepository.save(card);
+
+        return card;
 	}
 
 	@Override

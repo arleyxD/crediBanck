@@ -38,4 +38,12 @@ public class CardController {
         Card blockedCard = cardService.blockCard(cardId);
         return ResponseEntity.ok(blockedCard);
     }
+    
+    @PostMapping("/balance")
+    public ResponseEntity<Card> rechargeBalance(
+            @RequestParam String cardId,
+            @RequestParam double amount) {
+        Card rechargedCard = cardService.rechargeBalance(cardId, amount);
+        return ResponseEntity.ok(rechargedCard);
+    }
 }
