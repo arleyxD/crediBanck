@@ -1,5 +1,8 @@
 package com.springboot.app.validation;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CardValidationImpl implements CardValidation {
     @Override
     public void validateProductId(String productId) {

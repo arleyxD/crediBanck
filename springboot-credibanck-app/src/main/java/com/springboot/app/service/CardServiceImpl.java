@@ -5,11 +5,13 @@ import java.util.Date;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.springboot.app.model.Card;
 import com.springboot.app.repository.CardRepository;
 import com.springboot.app.validation.CardValidation;
 
+@Service
 public class CardServiceImpl implements CardService{
 	
 	 @Autowired
