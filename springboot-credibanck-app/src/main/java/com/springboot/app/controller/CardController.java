@@ -46,4 +46,11 @@ public class CardController {
         Card rechargedCard = cardService.rechargeBalance(cardId, amount);
         return ResponseEntity.ok(rechargedCard);
     }
+    
+    @GetMapping("/balance/{cardId}")
+    public ResponseEntity<Double> checkBalance(@PathVariable String cardId) {
+        double balance = cardService.checkBalance(cardId);
+        return ResponseEntity.ok(balance);
+    }
+    
 }

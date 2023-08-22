@@ -1,5 +1,8 @@
 package com.springboot.app.service;
 
-public class TransactionService {
+import com.springboot.app.model.Transaction;
 
+public interface TransactionService {
+	void performPurchaseTransaction(String cardId, double price);
+	Transaction getTransactionById(Long transactionId);
 }

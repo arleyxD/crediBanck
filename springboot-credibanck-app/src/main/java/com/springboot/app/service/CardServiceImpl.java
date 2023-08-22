@@ -98,8 +98,12 @@ public class CardServiceImpl implements CardService{
 
 	@Override
 	public double checkBalance(String cardId) {
-		// TODO Auto-generated method stub
-		return 0;
+        cardValidation.validateCardId(cardId); // Validación del cardId
+
+        Card card = cardRepository.findById(cardId)
+                .orElseThrow(() -> new CardIdValidationException("Card not found"));
+
+        return card.getBalance();
 	}
 	
 	
