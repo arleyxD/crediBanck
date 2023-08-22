@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.app.dao.CancellationRequest;
 import com.springboot.app.dao.TransactionRequest;
 import com.springboot.app.model.Transaction;
 import com.springboot.app.service.TransactionService;
@@ -30,4 +31,11 @@ public class TransactionController {
         Transaction transaction = transactionService.getTransactionById(transactionId);
         return ResponseEntity.ok(transaction);
     }
+    
+    @PostMapping("/cancellation")
+    public ResponseEntity<String> cancelTransaction(@RequestBody CancellationRequest request) {
+        transactionService.cancelTransaction(request.getCardId(), request.getTransactionId());
+        return ResponseEntity.ok("Transaction canceled successfully");
+    }
+  
 }

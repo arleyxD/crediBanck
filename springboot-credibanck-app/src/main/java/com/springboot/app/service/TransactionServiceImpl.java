@@ -57,4 +57,39 @@ public class TransactionServiceImpl implements TransactionService{
         return transactionRepository.findById(transactionId)
                 .orElseThrow(() -> new CustomException("Transaction not found"));
     }
+	
+	@Override
+    @Transactional
+    public void cancelTransaction(String cardId, Long transactionId) {
+        Card card = cardRepository.findById(cardId)
+                .orElseThrow(() -> new CustomException("Card not found"));
+
+        Transaction transaction = transactionRepository.findById(transactionId)
+                .orElseThrow(() -> new CustomException("Transaction not found"));
+
+        if (!card.isActive()) {
+            throw new CustomException("Card is not active");
+        }
+
+        if (!transaction.getTransactionType().equals("purchase")) {
+            throw new CustomException("Only purchase transactions can be canceled");
+        }
+
+        Date now = new Date();
+        long diffInMilliseconds = now.getTime() - transaction.getTransactionDate().getTime();
+        long diffInHours = diffInMilliseconds / (60 * 60 * 1000);
+
+        if (diffInHours > 24) {
+            throw new CustomException("Transaction cannot be canceled after 24 hours");
+        }
+
+        double transactionAmount = transaction.getTransactionAmount();
+        double currentBalance = card.getBalance();
+        double newBalance = currentBalance + transactionAmount;
+
+        card.setBalance(newBalance);
+        transaction.setTransactionType("canceled");
+        cardRepository.save(card);
+        transactionRepository.save(transaction);
+    }
 }
