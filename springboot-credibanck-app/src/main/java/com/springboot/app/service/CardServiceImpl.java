@@ -60,8 +60,19 @@ public class CardServiceImpl implements CardService{
 
 	@Override
 	public Card blockCard(String cardId) {
-		// TODO Auto-generated method stub
-		return null;
+		cardValidation.validateCardId(cardId); // Validación del cardId
+
+        Card card = cardRepository.findById(cardId)
+                .orElseThrow(() -> new CardIdValidationException("Card not found"));
+
+        if (!card.isActive()) {
+            throw new CardIdValidationException("Card is not active");
+        }
+
+        card.setActive(false);
+        cardRepository.save(card);
+
+        return card;
 	}
 
 	@Override
