@@ -7,6 +7,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.springboot.app.exception.CardIdValidationException;
 import com.springboot.app.model.Card;
 import com.springboot.app.repository.CardRepository;
 import com.springboot.app.validation.CardValidation;
@@ -42,8 +43,19 @@ public class CardServiceImpl implements CardService{
 
 	@Override
 	public Card enrollCard(String cardId) {
-		// TODO Auto-generated method stub
-		return null;
+		cardValidation.validateCardId(cardId); // Validación del cardId
+
+        Card card = cardRepository.findById(cardId)
+                .orElseThrow(() -> new CardIdValidationException("Card not found"));
+
+        if (card.isActive()) {
+            throw new CardIdValidationException("Card is already active");
+        }
+
+        card.setActive(true);
+        cardRepository.save(card);
+
+        return card;
 	}
 
 	@Override
