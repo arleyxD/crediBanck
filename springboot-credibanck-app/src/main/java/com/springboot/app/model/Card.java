@@ -1,4 +1,4 @@
-package com.springboot.model;
+package com.springboot.app.model;
 
 import java.util.Date;
 import jakarta.persistence.Entity;

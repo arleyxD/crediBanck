@@ -1,4 +1,4 @@
-package validation;
+package com.springboot.app.validation;
 
 public class CardValidationImpl implements CardValidation {
     @Override

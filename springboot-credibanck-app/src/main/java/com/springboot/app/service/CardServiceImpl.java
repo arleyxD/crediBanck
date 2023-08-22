@@ -1,4 +1,4 @@
-package com.springboot.service;
+package com.springboot.app.service;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -6,10 +6,9 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.springboot.model.Card;
-import com.springboot.repository.CardRepository;
-
-import validation.CardValidation;
+import com.springboot.app.model.Card;
+import com.springboot.app.repository.CardRepository;
+import com.springboot.app.validation.CardValidation;
 
 public class CardServiceImpl implements CardService{
 	

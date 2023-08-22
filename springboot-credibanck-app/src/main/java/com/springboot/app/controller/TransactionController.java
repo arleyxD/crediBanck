@@ -1,4 +1,4 @@
-package com.springboot.controller;
+package com.springboot.app.controller;
 
 public class TransactionController {
 
